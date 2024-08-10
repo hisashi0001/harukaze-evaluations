@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Harukaze 評価シート</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1, h2 {
+            color: #2c3e50;
+        }
+        .section {
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        .evaluation-item {
+            margin-bottom: 10px;
+        }
+        label {
+            display: inline-block;
+            width: 300px;
+        }
+        input[type="number"] {
+            width: 50px;
+        }
+        textarea {
+            width: 100%;
+            height: 100px;
+        }
+        #totalScore {
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+        button {
+            background-color: #3498db;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #2980b9;
+        }
+    </style>
+</head>
+<body>
+    <h1>Harukaze 評価シート</h1>
+    
+    <div class="section">
+        <h2>基本情報</h2>
+        <p>
+            <label for="evaluatee">評価対象者名：</label>
+            <input type="text" id="evaluatee" name="evaluatee">
+        </p>
+        <p>
+            <label for="evaluator">評価者名：</label>
+            <input type="text" id="evaluator" name="evaluator">
+        </p>
+        <p>
+            <label for="period">評価期間：</label>
+            <input type="text" id="period" name="period" placeholder="例：2024年Q2">
+        </p>
+    </div>
+
+    <div class="section">
+        <h2>バリュー評価</h2>
+        <div class="evaluation-item">
+            <label for="value1">わくわくと生きる：</label>
+            <input type="number" id="value1" name="value1" min="1" max="5">
+        </div>
+        <div class="evaluation-item">
+            <label for="value2">素晴らしいでは足りない：</label>
+            <input type="number" id="value2" name="value2" min="1" max="5">
+        </div>
+        <div class="evaluation-item">
+            <label for="value3">追い風になる：</label>
+            <input type="number" id="value3" name="value3" min="1" max="5">
+        </div>
+        <div class="evaluation-item">
+            <label for="value4">開拓力：</label>
+            <input type="number" id="value4" name="value4" min="1" max="5">
+        </div>
+        <div class="evaluation-item">
+            <label for="value5">コミュニケーション：</label>
+            <input type="number" id="value5" name="value5" min="1" max="5">
+        </div>
+        <div class="evaluation-item">
+            <label for="value6">知識、スキル：</label>
+            <input type="number" id="value6" name="value6" min="1" max="5">
+        </div>
+        <div class="evaluation-item">
+            <label for="value7">チームワーク：</label>
+            <input type="number" id="value7" name="value7" min="1" max="5">
+        </div>
+        <div class="evaluation-item">
+            <label for="value8">クリエイティビティ：</label>
+            <input type="number" id="value8" name="value8" min="1" max="5">
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>成果評価</h2>
+        <div class="evaluation-item">
+            <label for="performance1">売上・利益への貢献：</label>
+            <input type="number" id="performance1" name="performance1" min="1" max="5">
+        </div>
+        <div class="evaluation-item">
+            <label for="performance2">プロジェクト効率：</label>
+            <input type="number" id="performance2" name="performance2" min="1" max="5">
+        </div>
+        <div class="evaluation-item">
+            <label for="performance3">プロジェクトの完遂率：</label>
+            <input type="number" id="performance3" name="performance3" min="1" max="5">
+        </div>
+        <div class="evaluation-item">
+            <label for="performance4">クライアント満足度：</label>
+            <input type="number" id="performance4" name="performance4" min="1" max="5">
+        </div>
+        <div class="evaluation-item">
+            <label for="performance5">制作物の品質（デザイン、コンテンツ）：</label>
+            <input type="number" id="performance5" name="performance5" min="1" max="5">
+        </div>
+        <div class="evaluation-item">
+            <label for="performance6">イノベーション（新しいアイデアや手法の導入）：</label>
+            <input type="number" id="performance6" name="performance6" min="1" max="5">
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>総合評価</h2>
+        <p id="totalScore">総合点：0 / 70</p>
+        <p>
+            <label for="comment">総合コメント：</label>
+            <textarea id="comment" name="comment"></textarea>
+        </p>
+        <p>
+            <label for="nextGoals">次四半期の目標：</label>
+            <textarea id="nextGoals" name="nextGoals"></textarea>
+        </p>
+    </div>
+
+    <div class="section">
+        <p>
+            <label for="evaluationDate">評価日：</label>
+            <input type="date" id="evaluationDate" name="evaluationDate">
+        </p>
+        <button onclick="saveEvaluation()">保存</button>
+    </div>
+
+    <script>
+        function calculateTotal() {
+            let total = 0;
+            for (let i = 1; i <= 8; i++) {
+                total += parseInt(document.getElementById('value' + i).value || 0);
+            }
+            for (let i = 1; i <= 6; i++) {
+                total += parseInt(document.getElementById('performance' + i).value || 0);
+            }
+            document.getElementById('totalScore').textContent = '総合点：' + total + ' / 70';
+        }
+
+        // 全ての数値入力フィールドにイベントリスナーを追加
+        document.querySelectorAll('input[type="number"]').forEach(input => {
+            input.addEventListener('input', calculateTotal);
+        });
+
+        function saveEvaluation() {
+            // ここに保存のロジックを実装
+            alert('評価が保存されました。（実際の保存機能は実装されていません）');
+        }
+    </script>
+</body>
+</html>
